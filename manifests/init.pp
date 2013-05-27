@@ -1,11 +1,7 @@
 class git
 {
-    include repo_centos
-
-    package {
-        'git':
-            ensure => 'installed',
-            provider => 'yum',
-            require => Yumrepo['centos-base', 'centos-updates', 'centos-extras'];
+    case $operatingsystem {
+        'RedHat', 'CentOS': { include git::centos::base }
+        'Ubuntu':           { include git::ubuntu::base }
     }
 }
